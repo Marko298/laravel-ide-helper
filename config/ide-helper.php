@@ -164,6 +164,34 @@ return array(
      */
     'model_camel_case_properties' => false,
 
+
+
+    /*
+     |--------------------------------------------------------------------------
+     | Method type
+     |--------------------------------------------------------------------------
+     |
+     | Can take one of three values: both, static, dynamic.
+     |
+     | Sets type of method for scopes
+     |
+     | Example both:
+     |
+     | * @method \Illuminate\Database\Eloquent\Builder|\App\Models\User exampleScope()
+     | * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User exampleScope()
+     |
+     | Example static:
+     |
+     | * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User exampleScope()
+     |
+     | Example dynamic:
+     |
+     | * @method \Illuminate\Database\Eloquent\Builder|\App\Models\User exampleScope()
+     */
+
+
+    'model_method_type' => 'both',
+
     /*
     |--------------------------------------------------------------------------
     | Property Casts

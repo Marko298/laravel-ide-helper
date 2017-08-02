@@ -568,6 +568,15 @@ class ModelsCommand extends Command
         }
     }
 
+
+    /**
+     * @return string
+     */
+    protected function getMethodType()
+    {
+        return $this->laravel['config']->get('ide-helper.model_method_type', 'both');
+    }
+
     /**
      * @param string $class
      * @return string
@@ -630,8 +639,17 @@ class ModelsCommand extends Command
                 continue;
             }
             $arguments = implode(', ', $method['arguments']);
-            $tag = Tag::createInstance("@method static {$method['type']} {$name}({$arguments})", $phpdoc);
-            $phpdoc->appendTag($tag);
+            $method_type = $this->getMethodType();
+
+            if($method_type === 'both' || $method_type === 'static'){
+                $tag = Tag::createInstance("@method static {$method['type']} {$name}({$arguments})", $phpdoc);
+                $phpdoc->appendTag($tag);
+            }
+
+            if($method_type === 'both' || $method_type === 'dynamic'){
+                $tag = Tag::createInstance("@method {$method['type']} {$name}({$arguments})", $phpdoc);
+                $phpdoc->appendTag($tag);
+            }
         }
 
         if ($this->write && ! $phpdoc->getTagsByName('mixin')) {
